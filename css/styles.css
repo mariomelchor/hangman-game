@@ -1,0 +1,26 @@
+body {
+	color: #fff;
+	font-family: arial;
+	background: #000;
+}
+
+.alphabet-wrap {
+	overflow: auto;
+	text-align: center;
+}
+.alphabet-wrap .letter {
+	text-align: center;
+	text-transform: uppercase;
+	display: inline-block;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 10px;
+	min-width: 15px;
+	border-radius: 3px;
+	background: #999;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
