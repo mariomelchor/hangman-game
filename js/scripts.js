@@ -26,7 +26,17 @@ window.onload = function () {
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
       alphabetLetter[i].onclick = function() {
       console.log(this.innerHTML);
+      this.classList.add('active');
     }
   }
+
+  // Get which key was pressed
+  document.onkeypress = function(e) {
+     var keyPressed = String.fromCharCode(e.keyCode);
+     console.log(keyPressed );
+
+     document.getElementById('letter-' + keyPressed ).classList.add('active');
+  };
+
 
 }
