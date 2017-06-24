@@ -7,6 +7,10 @@ body {
 	font-family: arial;
 	background: #000;
 	position: relative;
+	background: url('../images/retro-8-bit-pixelart-wallpapers-180.jpg') repeat left top;
+	-webkit-background-size: cover;
+	background-size: cover;
+	overflow-x: hidden;
 }
 body:after {
 	content: '';
@@ -22,14 +26,16 @@ body:after {
 	text-align: center;
 	padding-top: 75px;
 	margin-bottom: 50px;
-	-ms-transform: rotate(-6deg); /* IE 9 */
-	-webkit-transform: rotate(-6deg); /* Safari */
+	-ms-transform: rotate(-6deg);
+	-webkit-transform: rotate(-6deg);
 	transform: rotate(-6deg);
 }
 
 /*------------------------------------*\
 	#Styles
 \*------------------------------------*/
+
+
 
 h1 {
 	color: lime;
