@@ -1,10 +1,44 @@
 /*------------------------------------*\
 	#Layout
 \*------------------------------------*/
+
 body {
 	color: #fff;
 	font-family: arial;
 	background: #000;
+	position: relative;
+}
+body:after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 5px;
+	height: 100px;
+	background: #fff;
+
+}
+.game-header {
+	text-align: center;
+	padding-top: 75px;
+	margin-bottom: 50px;
+	-ms-transform: rotate(-6deg); /* IE 9 */
+	-webkit-transform: rotate(-6deg); /* Safari */
+	transform: rotate(-6deg);
+}
+
+/*------------------------------------*\
+	#Styles
+\*------------------------------------*/
+
+h1 {
+	color: lime;
+	font-size: 75px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 0 #fff;
+	font-family: 'Press Start 2P', cursive;
 }
 
 /*------------------------------------*\
@@ -24,6 +58,8 @@ body {
 	margin-left: 10px;
 	margin-right: 10px;
 	padding: 10px;
+	height: 50px;
+	vertical-align: top;
 	min-width: 50px;
 	padding-bottom: 10px;
 	border-bottom: solid 2px #fff;
