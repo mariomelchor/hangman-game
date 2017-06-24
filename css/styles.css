@@ -1,9 +1,33 @@
+/*------------------------------------*\
+	#Layout
+\*------------------------------------*/
 body {
 	color: #fff;
 	font-family: arial;
 	background: #000;
 }
 
+/*------------------------------------*\
+	#Styles
+\*------------------------------------*/
+
+.word-wrap {
+	overflow: auto;
+	margin-bottom: 50px;
+	text-align: center;
+}
+.word-letter {
+	font-size: 50px;
+	text-align: center;
+	text-transform: uppercase;
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 10px;
+	min-width: 50px;
+	padding-bottom: 10px;
+	border-bottom: solid 2px #fff;
+}
 .alphabet-wrap {
 	overflow: auto;
 	text-align: center;
@@ -20,7 +44,6 @@ body {
 	border-radius: 3px;
 	background: #999;
 }
-
 .alphabet-wrap .letter.active {
 	background: red;
 }
