@@ -6,7 +6,6 @@ body {
 	color: #fff;
 	font-family: arial;
 	background: #000;
-	position: relative;
 	background: url('../images/retro-8-bit-pixelart-wallpapers-180.jpg') repeat left top;
 	overflow-x: hidden;
 }
@@ -18,7 +17,6 @@ body:after {
 	width: 5px;
 	height: 100px;
 	background: #fff;
-
 }
 .game-header {
 	text-align: center;
@@ -28,62 +26,18 @@ body:after {
 	-webkit-transform: rotate(-6deg);
 	transform: rotate(-6deg);
 }
-.remaining-letters-wrap {
-	padding-top: 20px;
-	padding-bottom: 20px;
-	background: rgba( 255, 255, 255, .05);
+.hangman {
+	width: 300px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	border: solid 1px #fff;
+	background: #000;
 }
-
-/*------------------------------------*\
-	#Headings
-\*------------------------------------*/
-
-h1 {
-	color: lime;
-	font-size: 75px;
-	margin-top: 25px;
-	margin-bottom: 25px;
-	text-transform: uppercase;
-	text-shadow: 2px 2px 0 #fff;
-	font-family: 'Press Start 2P', cursive;
-}
-h2 {
-	font-size: 16px;
-	color: lime;
-}
-.divider-heading {
-	overflow: hidden;
-}
-.divider-heading span {
-	display: inline-block;
-	position: relative;
-	padding-right: 20px;
-	padding-left: 20px;
-}
-.divider-heading span:before,
-.divider-heading span:after {
-	content: '';
-	position: absolute;
-	width: 1140px;
-	border-top: solid 1px rgba( 255, 255, 255, .50);
-}
-.divider-heading span:before {
-	left: 100%;
-	top: 50%;
-}
-.divider-heading span:after {
-	right: 100%;
-	top: 50%;
-}
-
-/*------------------------------------*\
-	#Styles
-\*------------------------------------*/
-
 .word-wrap {
 	overflow: auto;
-	margin-top: 100PX;
-	margin-bottom: 50px;
+	margin-top: 50px;
+	margin-bottom: 25px;
 	text-align: center;
 }
 .word-letter {
@@ -120,16 +74,110 @@ h2 {
 	border-radius: 3px;
 	-webkit-transition: all 0.5s ease;
 	transition: all 0.2s ease;
-	background: #999;
+	background: #333;
 }
 .alphabet-wrap .letter:hover {
 	opacity: .75;
 }
 .alphabet-wrap .letter.active,
 .alphabet-wrap .letter.active:hover {
-	color: #666;
+	color: #999;
 	background: rgba( 255, 255, 255, .15);
 }
+.guesses-remaining {
+	color: #fff;
+}
+.remaining-letters-wrap {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.game-stats {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -80px;
+	width: 210px;
+	padding: 20px;
+	border-top: solid 3px lime;
+	background: rgba( 255, 255, 255, .10);
+}
+.game-stats-wins {
+	color: lime;
+}
+.game-stats-losses {
+	color: red;
+}
+
+/*------------------------------------*\
+	#Headings
+\*------------------------------------*/
+
+h1 {
+	color: lime;
+	font-size: 75px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 0 #fff;
+	font-family: 'Press Start 2P', cursive;
+}
+h2 {
+	color: #fff;
+	font-size: 16px;
+}
+.divider-heading {
+	overflow: hidden;
+}
+.divider-heading span {
+	display: inline-block;
+	position: relative;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.divider-heading span:before,
+.divider-heading span:after {
+	content: '';
+	position: absolute;
+	width: 400px;
+	border-top: solid 1px #333;
+}
+.divider-heading span:before {
+	left: 100%;
+	top: 50%;
+}
+.divider-heading span:after {
+	right: 100%;
+	top: 50%;
+}
+.loose-heading {
+	color: red;
+	display: none;
+	animation: blinker 1s linear infinite;
+}
+.loose-heading span:before,
+.loose-heading span:after {
+	border-top: solid 1px red;
+}
+.win-heading {
+	color: lime;
+	display: none;
+	animation: blinker 1s linear infinite;
+}
+.win-heading span:before,
+.win-heading span:after {
+	border-top: solid 1px lime;
+}
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}
+
+/*------------------------------------*\
+	#Styles
+\*------------------------------------*/
+
 
 a {
 	text-decoration: none;

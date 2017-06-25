@@ -4,6 +4,7 @@ window.onload = function () {
   var wins = 0;
   var losses = 0;
   var guesses = 10;
+  var correctGuesses = 0;
   var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -11,9 +12,13 @@ window.onload = function () {
   var randomWord = words[Math.floor(Math.random() * words.length)];
   randomWord = randomWord.toLowerCase();
 
-  // Create a div for each letter in randomWord
+  // Creates a div for each letter in randomWord
   var wordsList = function () {
+
+    // document.querySelector(".loose-heading").style.display = "none";
+
     var wordWrap = document.getElementById('word-wrap');
+    // wordWrap.innerHTML = '';
 
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
@@ -49,48 +54,72 @@ window.onload = function () {
 
   // Get all elements with class letter loop through track click
   var alphabetLetter = document.getElementsByClassName('letter');
+
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
       alphabetLetter[i].onclick = function() {
-
       letterClicked = this.innerHTML;
       checkGuess( letterClicked, randomWord );
-
     }
   }
 
   // Get which key was pressed
   document.onkeypress = function(e) {
      var keyPressed = String.fromCharCode(e.keyCode);
-     // console.log(keyPressed );
-
      checkGuess( keyPressed, randomWord );
-
   }
 
   // Checks if letter exist in word
   function checkGuess( guess, word ) {
 
-    document.getElementById('letter-' + guess ).classList.add('active');
+    // Reduce guesses
+    guesses--;
+    document.querySelector(".game-stats-guesses").innerHTML = guesses;
+
+    var activeLetter = document.getElementById('letter-' + guess );
+    activeLetter.classList.add('active');
 
     if ( word.indexOf( guess ) > -1 ) {
-       console.log( 'Yes ' + guess );
+       // console.log( 'Yes ' + guess );
        // console.log( word.indexOf( guess ) );
+
+       correctGuesses++;
+       console.log(correctGuesses);
 
        letter = document.getElementById('word-letter-' + guess );
        letter.innerHTML = guess;
+
     } else {
        console.log( 'No ' + guess );
-       guesses--
-       console.log( "Guesses Remaining " + guesses );
     }
 
+    // You Win
+    if ( correctGuesses === randomWord.length ) {
+      wins++
+
+      // Display You Win
+      document.querySelector(".win-heading").style.display = "block";
+      document.querySelector(".game-stats-wins").innerHTML = wins;
+
+      //Start New
+      wordsList();
+
+    }
+
+    // You Loose === 0
     if ( guesses === 0 ) {
-      alert('You Lose');
       losses++
       guesses = 10;
-      console.log( "Total Losses " + losses );
-    }
-  }
 
+      // Display You Loose
+      document.querySelector(".loose-heading").style.display = "block";
+      document.querySelector(".game-stats-losses").innerHTML = losses;
+      document.querySelector(".game-stats-guesses").innerHTML = guesses;
+
+      //Start New
+      // wordsList();
+
+    }
+
+  }
 
 }

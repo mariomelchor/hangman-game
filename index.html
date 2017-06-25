@@ -14,12 +14,26 @@
 	<h1>Hangman<br>Game</h1>
 </header><!-- /.game-header -->
 
-<div id="word-wrap" class="word-wrap"></div><!-- /.word-wrap -->
+<div class="hangman"></div><!-- /.hangman -->
+
+<div id="word-wrap" class="word-wrap">
+	<h2 class="text-center text-uppercase divider-heading"><span>Current Word</span></h2>
+</div><!-- /.word-wrap -->
+
 
 <div class="remaining-letters-wrap">
 	<h2 class="text-center text-uppercase divider-heading"><span>Remaining Letters</span></h2>
 	<div id="alphabet-wrap" class="alphabet-wrap"></div><!-- /.alphabet-wrap -->
 </div><!-- /.remaining-letters-wrap -->
+
+<div class="game-stats">
+	<h2 class="divider-heading text-center text-uppercase"><span>Game Stats</span></h2>
+	<p class="text-uppercase"><strong>Wins:</strong> <span class="game-stats-wins">0</span></p>
+	<p class="text-uppercase"><strong>Losses:</strong> <span class="game-stats-losses">0</span></p>
+	<p class="text-uppercase"><strong>Guesses Remaining:</strong> <span class="game-stats-guesses">10</span></p>
+	<h2 class="divider-heading win-heading text-center text-uppercase"><span>YOU WIN!!!</span></h2>
+	<h2 class="divider-heading loose-heading text-center text-uppercase"><span>YOU LOOSE!!!</span></h2>
+</div><!-- /.game-stats -->
 
 </body>
 </html>
