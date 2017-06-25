@@ -24,6 +24,10 @@ window.onload = function () {
 
     var wordWrap = document.querySelector('#word-wrap');
 
+    while ( wordWrap.firstChild ) {
+      wordWrap.removeChild( wordWrap.firstChild );
+    }
+
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
       var character = randomWord.charAt(i);
@@ -44,6 +48,10 @@ window.onload = function () {
   var alphabetList = function () {
     var alphabetWrap = document.querySelector('#alphabet-wrap');
 
+    while ( alphabetWrap.firstChild ) {
+      alphabetWrap.removeChild( alphabetWrap.firstChild );
+    }
+
     for ( var i = 0; i < alphabet.length; i++ ) {
       var letter = document.createElement('div');
       letter.id = 'letter-' + alphabet[i];
@@ -51,6 +59,7 @@ window.onload = function () {
       letter.innerHTML = alphabet[i];
       alphabetWrap.appendChild(letter);
     }
+
   }
 
   // Call function
@@ -60,11 +69,12 @@ window.onload = function () {
   var alphabetLetter = document.querySelectorAll('.letter');
 
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
+
     alphabetLetter[i].addEventListener('click', function() {
       letterClicked = this.innerHTML;
 
       if ( ! this.hasClass('active') ){
-        checkGuess( letterClicked, randomWord );
+        checkGuess( letterClicked );
       }
 
       this.classList.add('active');
@@ -80,14 +90,14 @@ window.onload = function () {
      var letterClicked = document.querySelector('#letter-' + keyPressed );
 
      if ( ! letterClicked.hasClass('active') ){
-       checkGuess( keyPressed, randomWord );
+       checkGuess( keyPressed );
      }
 
      letterClicked.classList.add('active');
   }
 
   // Checks if letter exist in word
-  function checkGuess( guess, word ) {
+  function checkGuess( guess ) {
 
     document.querySelector(".loose-heading").style.display = "none";
     document.querySelector(".win-heading").style.display = "none";
@@ -95,8 +105,9 @@ window.onload = function () {
     guesses--;
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
-    if ( word.indexOf( guess ) > -1 ) {
-       // console.log( word.indexOf( guess ) );
+    // Check if guessed correct word
+    if ( randomWord.indexOf( guess ) > -1 ) {
+       // console.log( randomWord.indexOf( guess ) );
 
        // Add to correct guesses counter and add to guessesArray if guess doesn't exist
        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
@@ -115,6 +126,9 @@ window.onload = function () {
     // You Win
     if ( correctGuesses === randomWord.length ) {
       wins++
+      correctGuesses = 0;
+      guessesArray = [];
+      guesses = 10;
 
       // Display You Win
       document.querySelector(".win-heading").style.display = "block";
@@ -129,6 +143,8 @@ window.onload = function () {
     // You Loose === 0
     if ( guesses === 0 ) {
       losses++
+      correctGuesses = 0;
+      guessesArray = [];
       guesses = 10;
 
       // Display You Loose
@@ -143,7 +159,7 @@ window.onload = function () {
     }
 
     console.log('Correct Guesses : ' + correctGuesses);
-    // console.log(guessesArray);
+    console.log(guessesArray);
 
   }
 

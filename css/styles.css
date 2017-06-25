@@ -34,7 +34,7 @@ body:after {
 	border: solid 1px #fff;
 	background: #000;
 }
-.word-wrap {
+.current-word-wrap{
 	overflow: auto;
 	margin-top: 50px;
 	margin-bottom: 25px;
@@ -95,7 +95,7 @@ body:after {
 	position: absolute;
 	left: 0;
 	top: 50%;
-	margin-top: -80px;
+	margin-top: -180px;
 	width: 210px;
 	padding: 20px;
 	border-top: solid 3px lime;
