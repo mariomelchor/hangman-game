@@ -6,8 +6,7 @@ window.onload = function () {
   var guesses = 10;
   var correctGuesses = 0;
   var guessesArray = [];
-  // var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
-  var words = ['Matthew'];
+  var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
   // var audio = new Audio('audio/illusion-castle-short.wav');
