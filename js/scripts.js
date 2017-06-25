@@ -13,6 +13,12 @@ window.onload = function () {
   var randomWord = words[Math.floor(Math.random() * words.length)];
   randomWord = randomWord.toLowerCase();
 
+  // Checks if element has class
+  // https://gist.github.com/sonnyt/8585696
+  Element.prototype.hasClass = function(className) {
+      return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
+  };
+
   // Creates a div for each letter in randomWord
   var wordsList = function () {
 
@@ -56,20 +62,32 @@ window.onload = function () {
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
     alphabetLetter[i].addEventListener('click', function() {
       letterClicked = this.innerHTML;
-      checkGuess( letterClicked, randomWord );
+
+      if ( ! this.hasClass('active') ){
+        checkGuess( letterClicked, randomWord );
+      }
+
+      this.classList.add('active');
+
     })
   }
 
   // Get which key was pressed
-  document.onkeypress = function(e) {
-     var keyPressed = String.fromCharCode(e.keyCode);
-     checkGuess( keyPressed, randomWord );
+  document.onkeyup = function(e) {
+     var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
+     console.log(keyPressed);
+
+     var letterClicked = document.querySelector('#letter-' + keyPressed );
+
+     if ( ! letterClicked.hasClass('active') ){
+       checkGuess( keyPressed, randomWord );
+     }
+
+     letterClicked.classList.add('active');
   }
 
   // Checks if letter exist in word
   function checkGuess( guess, word ) {
-
-    document.querySelector('#letter-' + guess ).classList.add('active');
 
     document.querySelector(".loose-heading").style.display = "none";
     document.querySelector(".win-heading").style.display = "none";
@@ -78,7 +96,6 @@ window.onload = function () {
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
     if ( word.indexOf( guess ) > -1 ) {
-       // console.log( 'Yes ' + guess );
        // console.log( word.indexOf( guess ) );
 
        // Add to correct guesses counter and add to guessesArray if guess doesn't exist
