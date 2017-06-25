@@ -16,7 +16,7 @@ window.onload = function () {
   // Creates a div for each letter in randomWord
   var wordsList = function () {
 
-    var wordWrap = document.getElementById('word-wrap');
+    var wordWrap = document.querySelector('#word-wrap');
 
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
@@ -36,7 +36,7 @@ window.onload = function () {
 
   // Create a div for each letter in alphabet array
   var alphabetList = function () {
-    var alphabetWrap = document.getElementById('alphabet-wrap');
+    var alphabetWrap = document.querySelector('#alphabet-wrap');
 
     for ( var i = 0; i < alphabet.length; i++ ) {
       var letter = document.createElement('div');
@@ -51,13 +51,13 @@ window.onload = function () {
   alphabetList();
 
   // Get all elements with class letter loop through track click
-  var alphabetLetter = document.getElementsByClassName('letter');
+  var alphabetLetter = document.querySelectorAll('.letter');
 
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
-      alphabetLetter[i].onclick = function() {
+    alphabetLetter[i].addEventListener('click', function() {
       letterClicked = this.innerHTML;
       checkGuess( letterClicked, randomWord );
-    }
+    })
   }
 
   // Get which key was pressed
@@ -69,7 +69,7 @@ window.onload = function () {
   // Checks if letter exist in word
   function checkGuess( guess, word ) {
 
-    document.getElementById('letter-' + guess ).classList.add('active');
+    document.querySelector('#letter-' + guess ).classList.add('active');
 
     document.querySelector(".loose-heading").style.display = "none";
     document.querySelector(".win-heading").style.display = "none";
