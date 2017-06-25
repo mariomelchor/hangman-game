@@ -6,8 +6,16 @@ window.onload = function () {
   var guesses = 10;
   var correctGuesses = 0;
   var guessesArray = [];
-  var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
+  // var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
+  var words = ['Matthew'];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+  // var audio = new Audio('audio/illusion-castle-short.wav');
+  // audio.addEventListener('ended', function() {
+  //     this.currentTime = 0;
+  //     this.play();
+  // }, false);
+  // audio.play();
 
   // Randomly chooses a word from the words array.
   var randomWord = words[Math.floor(Math.random() * words.length)];
@@ -116,8 +124,14 @@ window.onload = function () {
          guessesArray.push(guess);
        }
 
-       letter = document.getElementById('word-letter-' + guess );
-       letter.innerHTML = guess;
+       // letter = document.getElementById('word-letter-' + guess );
+       // letter.innerHTML = guess;
+
+       letter = document.querySelectorAll('.word-letter-' + guess);
+
+       for ( var i = 0; i < letter.length; i++ ) {
+        letter[i].innerHTML = guess;
+       }
 
     } else {
        console.log( 'There is no ' + guess );
@@ -140,7 +154,7 @@ window.onload = function () {
 
     }
 
-    // You Loose === 0
+    // You Loose
     if ( guesses === 0 ) {
       losses++
       correctGuesses = 0;
