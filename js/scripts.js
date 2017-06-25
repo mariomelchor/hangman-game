@@ -5,6 +5,7 @@ window.onload = function () {
   var losses = 0;
   var guesses = 10;
   var correctGuesses = 0;
+  var guessesArray = [];
   var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -15,10 +16,7 @@ window.onload = function () {
   // Creates a div for each letter in randomWord
   var wordsList = function () {
 
-    // document.querySelector(".loose-heading").style.display = "none";
-
     var wordWrap = document.getElementById('word-wrap');
-    // wordWrap.innerHTML = '';
 
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
@@ -71,25 +69,30 @@ window.onload = function () {
   // Checks if letter exist in word
   function checkGuess( guess, word ) {
 
-    // Reduce guesses
+    document.getElementById('letter-' + guess ).classList.add('active');
+
+    document.querySelector(".loose-heading").style.display = "none";
+    document.querySelector(".win-heading").style.display = "none";
+
     guesses--;
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
-
-    var activeLetter = document.getElementById('letter-' + guess );
-    activeLetter.classList.add('active');
 
     if ( word.indexOf( guess ) > -1 ) {
        // console.log( 'Yes ' + guess );
        // console.log( word.indexOf( guess ) );
 
-       correctGuesses++;
-       console.log(correctGuesses);
+       // Add to correct guesses counter and add to guessesArray if guess doesn't exist
+       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+       if ( guessesArray.indexOf(guess) === -1 ) {
+         correctGuesses++;
+         guessesArray.push(guess);
+       }
 
        letter = document.getElementById('word-letter-' + guess );
        letter.innerHTML = guess;
 
     } else {
-       console.log( 'No ' + guess );
+       console.log( 'There is no ' + guess );
     }
 
     // You Win
@@ -102,6 +105,7 @@ window.onload = function () {
 
       //Start New
       wordsList();
+      alphabetList();
 
     }
 
@@ -116,9 +120,13 @@ window.onload = function () {
       document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
       //Start New
-      // wordsList();
+      wordsList();
+      alphabetList();
 
     }
+
+    console.log('Correct Guesses : ' + correctGuesses);
+    // console.log(guessesArray);
 
   }
 
