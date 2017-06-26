@@ -38,6 +38,7 @@ window.onload = function () {
   // Creates a div for each letter in randomWord
   var wordsList = function() {
 
+    document.querySelector(".game-start").style.display = "none";
     generateRandomWord();
 
     var wordWrap = document.querySelector('#word-wrap');
@@ -157,40 +158,43 @@ window.onload = function () {
     // You Win
     if ( correctGuesses === randomWord.length ) {
       wins++
-      correctGuesses = 0;
-      guessesArray = [];
-      guesses = 12;
 
       // Display You Win
       document.querySelector(".win-heading").style.display = "block";
       document.querySelector(".game-stats-wins").innerHTML = wins;
 
-      //Start New
-      wordsList();
-      alphabetList();
+      resetGame();
 
     }
 
     // You Loose
     if ( guesses === 0 ) {
       losses++
-      correctGuesses = 0;
-      guessesArray = [];
-      guesses = 12;
 
       // Display You Loose
       document.querySelector(".loose-heading").style.display = "block";
       document.querySelector(".game-stats-losses").innerHTML = losses;
       document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
-      //Start New
-      wordsList();
-      alphabetList();
+      resetGame();
 
     }
 
     console.log('Correct Guesses : ' + correctGuesses);
     console.log(guessesArray);
+
+  }
+
+  function resetGame(){
+    correctGuesses = 0;
+    guessesArray = [];
+    guesses = 12;
+
+    document.querySelector(".game-start").style.display = "block";
+
+     //Start New
+     wordsList();
+     alphabetList();
 
   }
 

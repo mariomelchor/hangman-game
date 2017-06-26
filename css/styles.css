@@ -112,6 +112,9 @@ body:after {
 .game-stats-losses {
 	color: red;
 }
+.game-start {
+	display: none;
+}
 
 /*------------------------------------*\
 	#Headings
