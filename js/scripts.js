@@ -3,7 +3,7 @@ window.onload = function () {
   // Define variables/arrays
   var wins = 0;
   var losses = 0;
-  var guesses = 10;
+  var guesses = 12;
   var correctGuesses = 0;
   var guessesArray = [];
   // var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
@@ -18,8 +18,16 @@ window.onload = function () {
   // audio.play();
 
   // Randomly chooses a word from the words array.
-  var randomWord = words[Math.floor(Math.random() * words.length)];
-  randomWord = randomWord.toLowerCase();
+  // var randomWord = words[Math.floor(Math.random() * words.length)];
+  // randomWord = randomWord.toLowerCase();
+
+ function generateRandomWord() {
+      var randomW = words[Math.floor(Math.random() * words.length)];
+      randomWord = randomW.toLowerCase();
+      return randomWord;
+  }
+
+  // console.log(randomWord);
 
   // Checks if element has class
   // https://gist.github.com/sonnyt/8585696
@@ -28,7 +36,9 @@ window.onload = function () {
   };
 
   // Creates a div for each letter in randomWord
-  var wordsList = function () {
+  var wordsList = function() {
+
+    generateRandomWord();
 
     var wordWrap = document.querySelector('#word-wrap');
 
@@ -39,11 +49,9 @@ window.onload = function () {
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
       var character = randomWord.charAt(i);
-      // console.log(character);
 
       wordLetter.id = 'word-letter-' + character;
       wordLetter.className = 'word-letter word-letter-' + character;
-      // wordLetter.innerHTML = character;
       wordWrap.appendChild(wordLetter);
 
     }
@@ -151,7 +159,7 @@ window.onload = function () {
       wins++
       correctGuesses = 0;
       guessesArray = [];
-      guesses = 10;
+      guesses = 12;
 
       // Display You Win
       document.querySelector(".win-heading").style.display = "block";
@@ -168,7 +176,7 @@ window.onload = function () {
       losses++
       correctGuesses = 0;
       guessesArray = [];
-      guesses = 10;
+      guesses = 12;
 
       // Display You Loose
       document.querySelector(".loose-heading").style.display = "block";
