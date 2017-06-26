@@ -6,7 +6,8 @@ window.onload = function () {
   var guesses = 10;
   var correctGuesses = 0;
   var guessesArray = [];
-  var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
+  // var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
+  var words = ['Rampage', 'Tempest', 'Centipede', 'Xevious', 'Donkey Kong', 'Defender', 'Frogger', 'Zaxxon', 'Frogger', 'Pac Man', 'Donkey Kong', 'Burgertime', 'Tron', 'Ms Pac Man', 'Galaga', 'Super Mario'];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
   // var audio = new Audio('audio/illusion-castle-short.wav');
@@ -92,7 +93,6 @@ window.onload = function () {
   // Get which key was pressed
   document.onkeyup = function(e) {
      var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
-     console.log(keyPressed);
 
      var letterClicked = document.querySelector('#letter-' + keyPressed );
 
@@ -112,16 +112,26 @@ window.onload = function () {
     guesses--;
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
-    // Check if guessed correct word
+    // Check if guessed correct letter
     if ( randomWord.indexOf( guess ) > -1 ) {
-       // console.log( randomWord.indexOf( guess ) );
 
-       // Add to correct guesses counter and add to guessesArray if guess doesn't exist
-       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
-       if ( guessesArray.indexOf(guess) === -1 ) {
+       var pos = randomWord.indexOf(guess);
+
+       while ( pos !== -1 ) {
+         pos = randomWord.indexOf( guess, pos + 1);
          correctGuesses++;
          guessesArray.push(guess);
        }
+
+       // correctGuesses++;
+       // guessesArray.push(guess);
+
+       // Add to correct guesses counter and add to guessesArray if guess doesn't exist
+       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+       // if ( guessesArray.indexOf(guess) === -1 ) {
+       //   correctGuesses++;
+       //   guessesArray.push(guess);
+       // }
 
        // letter = document.getElementById('word-letter-' + guess );
        // letter.innerHTML = guess;
