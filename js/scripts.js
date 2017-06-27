@@ -21,10 +21,10 @@ window.onload = function () {
   // var randomWord = words[Math.floor(Math.random() * words.length)];
   // randomWord = randomWord.toLowerCase();
 
- function generateRandomWord() {
-      var randomW = words[Math.floor(Math.random() * words.length)];
-      randomWord = randomW.toLowerCase();
-      return randomWord;
+  function generateRandomWord() {
+    var randomW = words[Math.floor(Math.random() * words.length)];
+    randomWord = randomW.toLowerCase();
+    return randomWord;
   }
 
   // console.log(randomWord);
@@ -32,17 +32,21 @@ window.onload = function () {
   // Checks if element has class
   // https://gist.github.com/sonnyt/8585696
   Element.prototype.hasClass = function(className) {
-      return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
+    return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
   };
 
   // Creates a div for each letter in randomWord
   var wordsList = function() {
 
+    document.querySelector(".loose-heading").style.display = "none";
+    document.querySelector(".win-heading").style.display = "none";
     document.querySelector(".game-start").style.display = "none";
+
     generateRandomWord();
 
-    var wordWrap = document.querySelector('#word-wrap');
+    var wordWrap = document.getElementById('word-wrap');
 
+    // Delete children next time function is called
     while ( wordWrap.firstChild ) {
       wordWrap.removeChild( wordWrap.firstChild );
     }
@@ -62,12 +66,9 @@ window.onload = function () {
   wordsList();
 
   // Create a div for each letter in alphabet array
-  var alphabetList = function () {
-    var alphabetWrap = document.querySelector('#alphabet-wrap');
+  var alphabetList = function() {
 
-    while ( alphabetWrap.firstChild ) {
-      alphabetWrap.removeChild( alphabetWrap.firstChild );
-    }
+    var alphabetWrap = document.getElementById('alphabet-wrap');
 
     for ( var i = 0; i < alphabet.length; i++ ) {
       var letter = document.createElement('div');
@@ -83,7 +84,7 @@ window.onload = function () {
   alphabetList();
 
   // Get all elements with class letter loop through track click
-  var alphabetLetter = document.querySelectorAll('.letter');
+  var alphabetLetter = document.getElementsByClassName('letter');
 
   for ( var i = 0; i < alphabetLetter.length; i++ ) {
 
@@ -101,22 +102,28 @@ window.onload = function () {
 
   // Get which key was pressed
   document.onkeyup = function(e) {
-     var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
 
-     var letterClicked = document.querySelector('#letter-' + keyPressed );
+    // Only track letters
+    if ( e.keyCode <= 90 && e.keyCode >= 65 ) {
+      var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
+      var letterClicked = document.getElementById('letter-' + keyPressed );
 
-     if ( ! letterClicked.hasClass('active') ){
-       checkGuess( keyPressed );
-     }
+      if ( ! letterClicked.hasClass('active') ){
+        checkGuess( keyPressed );
+      }
 
-     letterClicked.classList.add('active');
+      letterClicked.classList.add('active');
+    }
+
+    // When Enter Rest Game
+    if ( e.keyCode === 13 ) {
+      resetGame();
+    }
+
   }
 
   // Checks if letter exist in word
   function checkGuess( guess ) {
-
-    document.querySelector(".loose-heading").style.display = "none";
-    document.querySelector(".win-heading").style.display = "none";
 
     guesses--;
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
@@ -145,10 +152,10 @@ window.onload = function () {
        // letter = document.getElementById('word-letter-' + guess );
        // letter.innerHTML = guess;
 
-       letter = document.querySelectorAll('.word-letter-' + guess);
+       letterGuess = document.querySelectorAll('.word-letter-' + guess);
 
-       for ( var i = 0; i < letter.length; i++ ) {
-        letter[i].innerHTML = guess;
+       for ( var i = 0; i < letterGuess.length; i++ ) {
+        letterGuess[i].innerHTML = guess;
        }
 
     } else {
@@ -162,21 +169,18 @@ window.onload = function () {
       // Display You Win
       document.querySelector(".win-heading").style.display = "block";
       document.querySelector(".game-stats-wins").innerHTML = wins;
-
-      resetGame();
+      document.querySelector(".game-start").style.display = "block";
 
     }
 
     // You Loose
-    if ( guesses === 0 ) {
+    if ( guesses < 0 ) {
       losses++
 
       // Display You Loose
       document.querySelector(".loose-heading").style.display = "block";
       document.querySelector(".game-stats-losses").innerHTML = losses;
-      document.querySelector(".game-stats-guesses").innerHTML = guesses;
-
-      resetGame();
+      document.querySelector(".game-start").style.display = "block";
 
     }
 
@@ -189,13 +193,15 @@ window.onload = function () {
     correctGuesses = 0;
     guessesArray = [];
     guesses = 12;
+    document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
-    document.querySelector(".game-start").style.display = "block";
+    // Generate New Word
+    wordsList();
 
-     //Start New
-     wordsList();
-     alphabetList();
-
+    // var testLetter = document.getElementsByClassName('letter');
+      for ( var i = 0; i < alphabetLetter.length; i++) {
+      alphabetLetter[i].classList.remove('active');
+    }
   }
 
 }
