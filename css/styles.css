@@ -7,6 +7,8 @@ body {
 	font-family: arial;
 	background: #000;
 	background: url('../images/retro-8-bit-pixelart-wallpapers-180.jpg') repeat left top;
+	-webkit-background-size: cover;
+	background-size: cover;
 	overflow-x: hidden;
 }
 body:after {
@@ -189,7 +191,6 @@ h2 {
 /*------------------------------------*\
 	#Styles
 \*------------------------------------*/
-
 
 a {
 	text-decoration: none;

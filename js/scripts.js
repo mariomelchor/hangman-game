@@ -8,16 +8,14 @@ window.onload = function () {
   var wrong = 0;
   var guessesArray = [];
   var hangman = document.getElementById('hangman-img');
-  var words = [ 'Centipede', 'Defender', 'Tron', 'Galaxy', 'Asteroid', 'Cluster ', 'Comet', 'Dust', 'Earth', 'Saturn', 'Meteor', 'Nebula', 'Quasar', 'Supernova', 'Sputnik', 'Blackhole' ];
+  var words = [ 'Centipede', 'Defender', 'Tron', 'Galaxy', 'Asteroid', 'Cluster', 'Comet', 'Dust', 'Earth', 'Saturn', 'Meteor', 'Nebula', 'Quasar', 'Supernova', 'Sputnik', 'Blackhole' ];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  var audio = new Audio('audio/illusion-castle-short.wav');
+  var wawa = new Audio('audio/wawa.mp3');
 
-  // Randomly chooses a word from the words array.
-  audio.addEventListener('ended', function() {
-      this.currentTime = 0;
-      this.play();
-  }, false);
-  audio.play();
+  // Guess SFX
+  function playGuessSond(){
+   wawa.play();
+  }
 
   // Randomly chooses a word from the words array.
   function generateRandomWord() {
@@ -125,6 +123,8 @@ window.onload = function () {
 
     // Check if guessed correct letter
     if ( randomWord.indexOf( guess ) > -1 ) {
+
+      playGuessSond();
 
        var pos = randomWord.indexOf(guess);
 
