@@ -3,24 +3,23 @@ window.onload = function () {
   // Define variables/arrays
   var wins = 0;
   var losses = 0;
-  var guesses = 12;
+  var guesses = 9;
   var correctGuesses = 0;
+  var wrong = 0;
   var guessesArray = [];
-  // var words = ['Niva' , 'Mario', 'Rosa', 'Matthew', 'Angel'];
-  var words = ['Rampage', 'Tempest', 'Centipede', 'Xevious', 'Donkey Kong', 'Defender', 'Frogger', 'Zaxxon', 'Frogger', 'Pac Man', 'Donkey Kong', 'Burgertime', 'Tron', 'Ms Pac Man', 'Galaga', 'Super Mario'];
+  var hangman = document.getElementById('hangman-img');
+  var words = [ 'Centipede', 'Defender', 'Tron', 'Galaxy', 'Asteroid', 'Cluster ', 'Comet', 'Dust', 'Earth', 'Saturn', 'Meteor', 'Nebula', 'Quasar', 'Supernova', 'Sputnik', 'Blackhole' ];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-  // var audio = new Audio('audio/illusion-castle-short.wav');
-  // audio.addEventListener('ended', function() {
-  //     this.currentTime = 0;
-  //     this.play();
-  // }, false);
-  // audio.play();
+  var audio = new Audio('audio/illusion-castle-short.wav');
 
   // Randomly chooses a word from the words array.
-  // var randomWord = words[Math.floor(Math.random() * words.length)];
-  // randomWord = randomWord.toLowerCase();
+  audio.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+  }, false);
+  audio.play();
 
+  // Randomly chooses a word from the words array.
   function generateRandomWord() {
     var randomW = words[Math.floor(Math.random() * words.length)];
     randomWord = randomW.toLowerCase();
@@ -41,6 +40,7 @@ window.onload = function () {
     document.querySelector(".loose-heading").style.display = "none";
     document.querySelector(".win-heading").style.display = "none";
     document.querySelector(".game-start").style.display = "none";
+    hangman.src = "images/robot-hangman-0.png";
 
     generateRandomWord();
 
@@ -58,7 +58,6 @@ window.onload = function () {
       wordLetter.id = 'word-letter-' + character;
       wordLetter.className = 'word-letter word-letter-' + character;
       wordWrap.appendChild(wordLetter);
-
     }
   }
 
@@ -77,7 +76,6 @@ window.onload = function () {
       letter.innerHTML = alphabet[i];
       alphabetWrap.appendChild(letter);
     }
-
   }
 
   // Call function
@@ -125,9 +123,6 @@ window.onload = function () {
   // Checks if letter exist in word
   function checkGuess( guess ) {
 
-    guesses--;
-    document.querySelector(".game-stats-guesses").innerHTML = guesses;
-
     // Check if guessed correct letter
     if ( randomWord.indexOf( guess ) > -1 ) {
 
@@ -136,21 +131,8 @@ window.onload = function () {
        while ( pos !== -1 ) {
          pos = randomWord.indexOf( guess, pos + 1);
          correctGuesses++;
-         guessesArray.push(guess);
+         guessesArray.push( guess );
        }
-
-       // correctGuesses++;
-       // guessesArray.push(guess);
-
-       // Add to correct guesses counter and add to guessesArray if guess doesn't exist
-       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
-       // if ( guessesArray.indexOf(guess) === -1 ) {
-       //   correctGuesses++;
-       //   guessesArray.push(guess);
-       // }
-
-       // letter = document.getElementById('word-letter-' + guess );
-       // letter.innerHTML = guess;
 
        letterGuess = document.querySelectorAll('.word-letter-' + guess);
 
@@ -159,7 +141,11 @@ window.onload = function () {
        }
 
     } else {
-       console.log( 'There is no ' + guess );
+      wrong++;
+      hangman.src = "images/robot-hangman-"+ wrong + ".png";
+
+      guesses--;
+      document.querySelector(".game-stats-guesses").innerHTML = guesses;
     }
 
     // You Win
@@ -174,7 +160,7 @@ window.onload = function () {
     }
 
     // You Loose
-    if ( guesses < 0 ) {
+    if ( guesses === 0 ) {
       losses++
 
       // Display You Loose
@@ -184,22 +170,25 @@ window.onload = function () {
 
     }
 
-    console.log('Correct Guesses : ' + correctGuesses);
-    console.log(guessesArray);
+    // console.log('Correct Guesses : ' + correctGuesses);
+    // console.log(guessesArray);
 
   }
 
+  // Reset Game
   function resetGame(){
     correctGuesses = 0;
     guessesArray = [];
-    guesses = 12;
+    guesses = 9;
+    wrong = 0;
+
     document.querySelector(".game-stats-guesses").innerHTML = guesses;
 
     // Generate New Word
     wordsList();
 
-    // var testLetter = document.getElementsByClassName('letter');
-      for ( var i = 0; i < alphabetLetter.length; i++) {
+    // Removes active class from alphabet array
+    for ( var i = 0; i < alphabetLetter.length; i++) {
       alphabetLetter[i].classList.remove('active');
     }
   }
