@@ -58,6 +58,9 @@ body:after {
 	border-radius: 3px;
 	background: #1A1A1A;
 }
+.word-letter-missing {
+	color: #333;
+}
 .alphabet-wrap {
 	overflow: auto;
 	text-align: center;

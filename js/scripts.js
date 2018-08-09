@@ -11,6 +11,8 @@ window.onload = function () {
   var words = [ 'Centipede', 'Defender', 'Tron', 'Galaxy', 'Asteroid', 'Cluster', 'Comet', 'Dust', 'Earth', 'Saturn', 'Meteor', 'Nebula', 'Quasar', 'Supernova', 'Sputnik', 'Blackhole' ];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   var wawa = new Audio('audio/wawa.mp3');
+  var randomWord;
+  var wordWrap = document.getElementById('word-wrap');
 
   // Guess SFX
   function playGuessSond(){
@@ -21,10 +23,7 @@ window.onload = function () {
   function generateRandomWord() {
     var randomW = words[Math.floor(Math.random() * words.length)];
     randomWord = randomW.toLowerCase();
-    return randomWord;
   }
-
-  // console.log(randomWord);
 
   // Checks if element has class
   // https://gist.github.com/sonnyt/8585696
@@ -42,12 +41,8 @@ window.onload = function () {
 
     generateRandomWord();
 
-    var wordWrap = document.getElementById('word-wrap');
-
     // Delete children next time function is called
-    while ( wordWrap.firstChild ) {
-      wordWrap.removeChild( wordWrap.firstChild );
-    }
+    wordWrap.innerHTML = '';
 
     for ( var i = 0; i < randomWord.length; i++ ) {
       var wordLetter = document.createElement('div');
@@ -87,7 +82,7 @@ window.onload = function () {
     alphabetLetter[i].addEventListener('click', function() {
       letterClicked = this.innerHTML;
 
-      if ( ! this.hasClass('active') ){
+      if ( ! this.hasClass('active') && guesses > 0 && correctGuesses !== randomWord.length) {
         checkGuess( letterClicked );
       }
 
@@ -104,7 +99,7 @@ window.onload = function () {
       var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
       var letterClicked = document.getElementById('letter-' + keyPressed );
 
-      if ( ! letterClicked.hasClass('active') ){
+      if ( ! letterClicked.hasClass('active') && guesses > 0 && correctGuesses !== randomWord.length ){
         checkGuess( keyPressed );
       }
 
@@ -168,10 +163,24 @@ window.onload = function () {
       document.querySelector(".game-stats-losses").innerHTML = losses;
       document.querySelector(".game-start").style.display = "block";
 
-    }
+      wordWrap.innerHTML = '';
 
-    // console.log('Correct Guesses : ' + correctGuesses);
-    // console.log(guessesArray);
+      randomWord.split('').forEach(function(element) {
+
+          var div = document.createElement('div');
+    
+          div.id = 'word-letter-' + element;
+          div.className = 'word-letter word-letter-' + element;
+
+          if ( guessesArray.indexOf( element ) === -1 ){
+            div.classList.add('word-letter-missing');
+          }
+           
+          div.textContent = element;
+          wordWrap.appendChild(div);
+      });
+
+    }
 
   }
 
