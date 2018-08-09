@@ -7,16 +7,19 @@ window.onload = function () {
   var correctGuesses = 0;
   var wrong = 0;
   var guessesArray = [];
-  var hangman = document.getElementById('hangman-img');
   var words = [ 'Centipede', 'Defender', 'Tron', 'Galaxy', 'Asteroid', 'Cluster', 'Comet', 'Dust', 'Earth', 'Saturn', 'Meteor', 'Nebula', 'Quasar', 'Supernova', 'Sputnik', 'Blackhole' ];
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   var wawa = new Audio('audio/wawa.mp3');
   var randomWord;
+  
+  // Dom Elements
+  var hangman = document.getElementById('hangman-img');
+  var alphabetWrap = document.getElementById('alphabet-wrap');
   var wordWrap = document.getElementById('word-wrap');
 
   // Guess SFX
   function playGuessSond(){
-   wawa.play();
+    wawa.play();
   }
 
   // Randomly chooses a word from the words array.
@@ -44,14 +47,15 @@ window.onload = function () {
     // Delete children next time function is called
     wordWrap.innerHTML = '';
 
-    for ( var i = 0; i < randomWord.length; i++ ) {
-      var wordLetter = document.createElement('div');
-      var character = randomWord.charAt(i);
+    // Generate div for each letter in randomWord
+    randomWord.split('').forEach(function(letter) {
+      var div = document.createElement('div');
 
-      wordLetter.id = 'word-letter-' + character;
-      wordLetter.className = 'word-letter word-letter-' + character;
-      wordWrap.appendChild(wordLetter);
-    }
+      div.id = 'word-letter-' + letter;
+      div.className = 'word-letter word-letter-' + letter;
+      wordWrap.appendChild(div);
+    });
+    
   }
 
   // Call function
@@ -60,15 +64,14 @@ window.onload = function () {
   // Create a div for each letter in alphabet array
   var alphabetList = function() {
 
-    var alphabetWrap = document.getElementById('alphabet-wrap');
+    alphabet.forEach(function(letter) {
+      var div = document.createElement('div');
+      div.id = 'letter-' + letter;
+      div.className = 'letter';
+      div.innerHTML = letter;
+      alphabetWrap.appendChild(div);
+    });
 
-    for ( var i = 0; i < alphabet.length; i++ ) {
-      var letter = document.createElement('div');
-      letter.id = 'letter-' + alphabet[i];
-      letter.className = 'letter';
-      letter.innerHTML = alphabet[i];
-      alphabetWrap.appendChild(letter);
-    }
   }
 
   // Call function
