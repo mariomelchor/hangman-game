@@ -24,8 +24,7 @@ window.onload = function () {
 
   // Randomly chooses a word from the words array.
   function generateRandomWord() {
-    var randomW = words[Math.floor(Math.random() * words.length)];
-    randomWord = randomW.toLowerCase();
+    randomWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
   }
 
   // Checks if element has class
