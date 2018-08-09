@@ -117,26 +117,23 @@ window.onload = function () {
   // Checks if letter exist in word
   function checkGuess( guess ) {
 
-    // Check if guessed correct letter
-    if ( randomWord.indexOf( guess ) > -1 ) {
+    var letterGuess = document.querySelectorAll('.word-letter-' + guess);
 
-      playGuessSond();
+    // loop through randomWord and see if guess matches
+    randomWord.split('').forEach(function(letter) {
+      if( letter === guess ) {
+        playGuessSond();
+        correctGuesses++;
+        guessesArray.push( guess );
+       
+        letterGuess.forEach(function(letter) {
+          letter.innerHTML = guess;
+        });
+      }
+    });
 
-       var pos = randomWord.indexOf(guess);
-
-       while ( pos !== -1 ) {
-         pos = randomWord.indexOf( guess, pos + 1);
-         correctGuesses++;
-         guessesArray.push( guess );
-       }
-
-       var letterGuess = document.querySelectorAll('.word-letter-' + guess);
-
-       letterGuess.forEach(function(letter) {
-        letter.innerHTML = guess;
-       });
-
-    } else {
+    // if guess doesnt exist in randomWord
+    if ( randomWord.indexOf(guess) === -1 ) {
       wrong++;
       hangman.src = "images/robot-hangman-"+ wrong + ".png";
 
