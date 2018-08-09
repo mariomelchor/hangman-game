@@ -77,22 +77,22 @@ window.onload = function () {
   // Call function
   alphabetList();
 
+  var alphabetLetter = document.querySelectorAll('.letter');
+
   // Get all elements with class letter loop through track click
-  var alphabetLetter = document.getElementsByClassName('letter');
+  alphabetLetter.forEach(function(letter) {
+    letter.addEventListener('click', function() {
+      var letterClicked = this.innerHTML;
 
-  for ( var i = 0; i < alphabetLetter.length; i++ ) {
-
-    alphabetLetter[i].addEventListener('click', function() {
-      letterClicked = this.innerHTML;
-
-      if ( ! this.hasClass('active') && guesses > 0 && correctGuesses !== randomWord.length) {
+      if ( ! this.hasClass('active') && guesses > 0 && correctGuesses !== randomWord.length ) {
         checkGuess( letterClicked );
       }
 
       this.classList.add('active');
 
-    })
-  }
+    });
+  });
+
 
   // Get which key was pressed
   document.onkeyup = function(e) {
@@ -200,9 +200,10 @@ window.onload = function () {
     wordsList();
 
     // Removes active class from alphabet array
-    for ( var i = 0; i < alphabetLetter.length; i++) {
-      alphabetLetter[i].classList.remove('active');
-    }
+    alphabetLetter.forEach(function(letter) {
+      letter.classList.remove('active');
+    })
+
   }
 
 }
