@@ -92,10 +92,8 @@ window.onload = function () {
     });
   });
 
-
   // Get which key was pressed
-  document.onkeyup = function(e) {
-
+  document.addEventListener('keyup', function(e) {
     // Only track letters
     if ( e.keyCode <= 90 && e.keyCode >= 65 ) {
       var keyPressed = String.fromCharCode(e.keyCode).toLowerCase();
@@ -107,13 +105,14 @@ window.onload = function () {
 
       letterClicked.classList.add('active');
     }
+  });
 
-    // When Enter Rest Game
+  // Reset game when enter is clicked
+  document.addEventListener('keyup', function(e) {
     if ( e.keyCode === 13 ) {
       resetGame();
     }
-
-  }
+  });
 
   // Checks if letter exist in word
   function checkGuess( guess ) {
