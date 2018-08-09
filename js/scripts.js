@@ -130,11 +130,11 @@ window.onload = function () {
          guessesArray.push( guess );
        }
 
-       letterGuess = document.querySelectorAll('.word-letter-' + guess);
+       var letterGuess = document.querySelectorAll('.word-letter-' + guess);
 
-       for ( var i = 0; i < letterGuess.length; i++ ) {
-        letterGuess[i].innerHTML = guess;
-       }
+       letterGuess.forEach(function(letter) {
+        letter.innerHTML = guess;
+       });
 
     } else {
       wrong++;
@@ -200,7 +200,7 @@ window.onload = function () {
     // Removes active class from alphabet array
     alphabetLetter.forEach(function(letter) {
       letter.classList.remove('active');
-    })
+    });
 
   }
 
